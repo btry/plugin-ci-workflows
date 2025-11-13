@@ -244,9 +244,9 @@ jobs:
         run: |
           echo -e "\033[0;33mExecuting PHPUnit...\033[0m"
           if [[ -f "vendor/bin/phpunit" ]]; then
-            vendor/bin/phpunit --colors=always
+            vendor/bin/phpunit --colors=always "${{ env.PHPUNIT_ARGS }}"
           elif [[ -f "../../vendor/bin/phpunit" ]]; then
-            ../../vendor/bin/phpunit --colors=always
+            ../../vendor/bin/phpunit --colors=always "${{ env.PHPUNIT_ARGS }}"
           else
             echo -e "\033[0;31mPHPUnit binary not found!\033[0m"
             exit 1
