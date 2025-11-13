@@ -243,6 +243,7 @@ jobs:
         if: ${{ !cancelled() && (hashFiles(format('{0}/phpunit.xml', inputs.plugin-key)) != '' || (hashFiles(format('{0}/phpunit.xml.dist', inputs.plugin-key)) != '')) }}
         run: |
           echo -e "\033[0;33mExecuting PHPUnit...\033[0m"
+          sudo docker-php-ext-install xdebug
           if [[ -f "vendor/bin/phpunit" ]]; then
             XDEBUG_MODE=coverage vendor/bin/phpunit --colors=always
           elif [[ -f "../../vendor/bin/phpunit" ]]; then
@@ -251,6 +252,8 @@ jobs:
             echo -e "\033[0;31mPHPUnit binary not found!\033[0m"
             exit 1
           fi
+      - name: "Check code coverage"
+        run: ls -l "docs/coverage/"
       - name: "Jest"
         if: ${{ !cancelled() && hashFiles(format('{0}/jest.config.js', inputs.plugin-key)) != '' }}
         run: |
