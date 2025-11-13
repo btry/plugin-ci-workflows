@@ -240,7 +240,7 @@ jobs:
         run: |
           sudo service apache2 start
       - name: "PHPUnit"
-        if: ${{ !cancelled() && (hashFiles(format('{0}/phpunit.xml', inputs.plugin-key)) != '' || hashFiles(format('{0}/phpunit.xml.dist', inputs.plugin-key)) != '') }}
+        if: ${{ !cancelled() && (hashFiles(format('{0}/phpunit.xml', inputs.plugin-key)) != '' || (hashFiles(format('{0}/phpunit.xml.dist', inputs.plugin-key)) != '')) }}
         run: |
           echo -e "\033[0;33mExecuting PHPUnit...\033[0m"
           if [[ -f "vendor/bin/phpunit" ]]; then
